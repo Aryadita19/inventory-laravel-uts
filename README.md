@@ -56,3 +56,44 @@ php artisan migrate:fresh --seed   # reset database + data demo
 ## Dokumentasi
 - `docs/ARSITEKTUR_MVC.md` - penjelasan MVC, alur request, dan demo alur form.
 - `<!-- UTS Final Update -->` - Pembaruan final layout checkout dan integrasi payment gateway.
+# 🛒 Aplikasi Inventory & Sistem Pembayaran Customer (UTS Laravel)
+
+Proyek ini adalah pengembangan sistem manajemen inventori berbasis Laravel yang dilengkapi dengan simulasi halaman pembelian dan *payment gateway* khusus untuk kebutuhan Ujian Tengah Semester (UTS).
+
+---
+
+## 📌 Fitur Utama Aplikasi
+1. **Manajemen Inventori (Admin & Staff)**: Pengelolaan data produk, kategori, supplier, serta pencatatan stok masuk dan keluar.
+2. **Katalog & Pembelian (Customer)**: Halaman khusus bagi pelanggan untuk melihat daftar produk, memilih jumlah barang, dan melakukan simulasi *checkout*.
+3. **Simulasi Payment Gateway**: Dukungan pilihan metode pembayaran seperti QRIS, Transfer Bank, dan COD.
+
+---
+
+## 🗄️ Database & ERD (Entity Relationship Diagram)
+Berikut adalah struktur basis data (*Entity Relationship Diagram*) yang digunakan dalam aplikasi inventory ini:
+
+> ![ERD Aplikasi](public/screenshots/arya.jpg)
+
+---
+
+## 📸 Dokumentasi Tampilan (Screenshots)
+
+Berikut adalah beberapa tangkapan layar dari aplikasi:
+
+### 1. Dashboard Utama
+Menampilkan ringkasan statistik produk, nilai inventori, serta peringatan stok rendah.
+> ![Dashboard](public/screenshots/dashboard.png)
+
+### 2. Halaman Pembelian & Payment Gateway
+Tampilan halaman belanja customer lengkap dengan pilihan metode pembayaran dan tombol *checkout*.
+> ![Payment Gateway](public/screenshots/payment.png)
+
+---
+
+## 🚀 Cara Menjalankan Proyek
+1. Pastikan **XAMPP** (Apache & MySQL) sudah aktif.
+2. Clone atau buka direktori proyek di terminal VS Code.
+3. Jalankan perintah instalasi dependensi:
+   ```bash
+   composer install
+   npm install
