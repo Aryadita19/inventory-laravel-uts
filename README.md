@@ -55,3 +55,4 @@ php artisan migrate:fresh --seed   # reset database + data demo
 
 ## Dokumentasi
 - `docs/ARSITEKTUR_MVC.md` - penjelasan MVC, alur request, dan demo alur form.
+- `<!-- UTS Final Update -->` - Pembaruan final layout checkout dan integrasi payment gateway.
