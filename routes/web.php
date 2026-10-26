@@ -9,6 +9,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\EnsureRole;
+use Illuminate\Http\Request;
 
 Route::get('/', fn () => redirect()->route('dashboard'));
 
@@ -18,7 +19,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
 });
 
-// ---- Harus login (admin & staff) ----
+// ---- Harus login (admin & staff & customer) ----
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
@@ -40,4 +41,29 @@ Route::middleware('auth')->group(function () {
     Route::get('/stock/history', [StockController::class, 'history'])->name('stock.history');
     Route::get('/stock/{type}', [StockController::class, 'create'])->whereIn('type', ['in', 'out'])->name('stock.create');
     Route::post('/stock/{type}', [StockController::class, 'store'])->whereIn('type', ['in', 'out'])->name('stock.store');
+
+    // ---- Fitur Pembelian & Payment Gateway Customer (UTS) ----
+    Route::get('/customer/buy', function () {
+        $products = \App\Models\Product::all();
+        return view('customer.buy', compact('products'));
+    })->name('customer.buy');
+
+    Route::post('/customer/pay', function (Request $request) {
+        $request->validate([
+            'product_id' => 'required',
+            'quantity' => 'required|numeric|min:1',
+            'payment_method' => 'required'
+        ]);
+
+        $product = \App\Models\Product::find($request->product_id);
+
+        if ($product && $product->stock >= $request->quantity) {
+            // Kurangi stok produk secara otomatis saat dibeli
+            $product->decrement('stock', $request->quantity);
+
+            return redirect()->route('customer.buy')->with('success', 'Pembayaran via ' . strtoupper($request->payment_method) . ' Berhasil! Pesanan ' . $product->name . ' sedang diproses.');
+        }
+
+        return redirect()->route('customer.buy')->with('error', 'Gagal! Stok barang tidak mencukupi.');
+    })->name('customer.pay');
 });

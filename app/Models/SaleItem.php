@@ -1,3 +1,5 @@
+<?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +14,7 @@ class SaleItem extends Model
         'product_id',
         'quantity',
         'unit_price',
-        'subtotal'
+        'subtotal',
     ];
 
     public function sale()
